@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Verification Test</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <p id="verif"></p>
+    <script type="module">
+      // get token from query string
+      const url = new URL(window.location.href);
+      const searchParams = new URLSearchParams(url.search);
+      const token = searchParams.get('token'); // 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjp0cnVlLCJleHAiOjE2MzcxMjczNjAuNTc1NzM1OH0.8lqL_KjlYZR9k196RV4vp4t9APt6Ge5fOpGeltZ6Wzs'
+      // request to backend
+      const res = await fetch('https://api.fra641.dogmatism.me/users', {
+        method: 'GET',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (res.status == 200) {
+        // verification was successful, do
+        // get user data
+        const {email, first_name, last_name, role, user_id } = await res.json();
+        // manipulate dom
+        document.getElementById('verif').innerHTML= `Welcome [id:${user_id}] ${first_name} ${last_name} - email = ${email}, role = ${role}`;
+      } else {
+        // verification was not successful, do
+        window.location.href = 'https://fra641.dogmatism.me'; // redirect to centre page
+      }
+    </script>
+  </body>
+</html>
