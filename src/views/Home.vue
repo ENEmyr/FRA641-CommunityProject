@@ -1,81 +1,88 @@
 <template>
   <div>
-    <div class="d-grid gap-2">
-      <button class="btn btn-outline-info" type="button" v-on:click="goPlayGame('roboticarm')">Go to Robotics Arm Game</button>
-      <button class="btn btn-outline-info" type="button" v-on:click="goPlayGame('game2')">Go to game 2</button>
-      <button class="btn btn-outline-info" type="button" v-on:click="goPlayGame('game3')">Go to game 3</button>
-      <button class="btn btn-outline-info" type="button" v-on:click="goPlayGame('game4')">Go to game 4</button>
+    <div class="gap-2">
+      <project-card 
+        title="Remotely Control a Robotic Arm with Blockly"
+        img="https://dogmatism.me/wp-content/uploads/2021/10/image-12.png" 
+        :members="['Mr.Patipon Buason', 'Ms.Kuljira Jaruprathai']" 
+        :buttons="[ 
+          { 
+            title: 'Play Game!', 
+            url: 'roboticarm',
+            requireAuth: true
+          }, 
+          { 
+            title: 'Info',
+            url: 'roboticarminfo',
+            requireAuth: false
+          }
+        ]"
+        body="โครงงานสื่อการเรียนรู้เพื่อควบคุมแขนกลทางไกลแบบปฏิสัมพันธ์ด้วย Blockly ชิ้นนี้จัดทำขึ้นโดยมีวัตถุประสงค์เพื่อเสริมสร้างความเข้าใจในการทำงานของระบบ IOT และส่งเสริมการเรียนรู้ทางด้านวิทยาการหุ่นยนต์ในระดับเบื้องต้น โดยมีความเป็นเป็นมิตรต่อตัวผู้เรียนจากระบบการสั่งงานแขนกลแบบปฏิสัมพันธ์ผ่าน Blockly และยังสามารถสังเกตการณ์ผลการสั่งงานผ่านระบบ Video Streaming แบบ Real-Time วิธีการเล่น 1.กดที่แท็บกล่องคำสั่งฝั่งซ้ายมือโดยเริ่มต้นจากบล็อกที่ชื่อว่า Start ก่อนเสมอ 2.เลือกบล็อกคำสั่งอื่นๆที่ต้องการเพื่อนำมาต่อภายในบล็อก Start 3.หากต้องการลบบล็อกที่ไม่ต้องการใช้ทิ้งให้ทำการลากไปวางในไอคอนรูปพังขยะ 4.เมื่อสิ้นสุดการต่อบล็อกแล้วให้ทำการต่อบล็อก End เป็นบล็อกสุดท้ายแล้วจึงกดปุ่ม Submit 5.สังเกตการทำงานของหุ่นยนต์ที่หน้า Video Streaming"
+        class="pt-3"
+        >
+      </project-card>
+      <project-card 
+        title="Augmented Maze Challenge"
+        img="https://i.imgur.com/St7Ksog.jpeg" 
+        :members="['Mr.Thanatchai Wongjirad', 'Mr.Nattapoom Sawettaporn']" 
+        :buttons="[ 
+          { 
+            title: 'Info',
+            url: 'augmentinfo',
+            requireAuth: false
+          }
+        ]"
+        body="เกมบังคับหุ่นยนต์ระยะไกลฝ่าเขาวงกตจำลองหากท่านกำลังสนใจการเขียนโปรแกรม แต่ยังไม่เข้าใจหลักการของมัน Augment Maze Challenge ก็ดูจะเป็นสื่อการเรียนรู้ที่เหมาะในการเปิดประสบการณ์เหล่านั้นให้แก่ท่าน ผ่านการเรียง block coding ที่เข้าใจง่าย เพื่อบังคับหุ่นยนต์ระยะไกล (teleoperation) ให้วิ่งผ่านเขาวงกตจำลองที่ซ้อนทับอยู่บนสนามจริง ไปยังจุดหมายปลายทางที่กำหนดให้ โดยไม่ให้จุดวงกลมบนตัวหุ่นยนต์โดนกำแพงเขาวงกตแม้แต่น้อย หากโดนเกมจะยุติและตัวหุ่นยนต์จะวิ่งกลับไป ณ จุดเริ่มต้นอีกครั้งเพื่อให้ผู้เล่นเริ่มใหม่ ลองดูสิว่า ท่านสามารถพิชิตเกมนี้ได้หรือไม่!"
+        class="pt-3"
+        >
+      </project-card>
+      <project-card 
+        title="Logistic Robot"
+        img="https://i.imgur.com/5RMoaqu.jpeg" 
+        :members="['Mr.Teerapord Lin', 'Mr.Pattaraphon Boonchai']" 
+        :buttons="[ 
+          { 
+            title: 'Play Game!',
+            url: 'logiticrobotgame',
+            requireAuth: true
+          },
+          { 
+            title: 'Info',
+            url: 'logiticrobotinfo',
+            requireAuth: false
+          }
+        ]"
+        body="โครงการ Logistic Robot ใช้ระบบ IoT ในการสื่อสารระหว่างอุปกรณ์ เพื่อปฏิบัติตามภารกิจที่มอบหมายให้โดยจะให้ Logistic Robot วิ่งตามเส้นหยิบขวดน้ำจากจุดหนึ่งไปวางยังอีกจุดหนึ่ง โดยจะมี ขวดน้ำ และ bucket จับกันเป็นคู่ ๆวางอยู่ในตำแหน่งต่าง ๆตามจุดตัดทางวิ่งของหุ่นยนต์เพื่อให้นำไปวางให้ตรงคู่ของกันและกัน"
+        class="pt-3"
+        >
+      </project-card>
+      <project-card 
+        title="Node-RED to the moon "
+        img="https://i.imgur.com/D3r85iZ.jpeg" 
+        :members="['Mr.Phisek Phinyothammakon']" 
+        :buttons="[ 
+          { 
+            title: 'Info',
+            url: 'noderedinfo',
+            requireAuth: false
+          }
+        ]"
+        body="โครงงานสื่อการเรียนรู้เพื่อสอนการใช้งาน Node-RED ผ่าน Node-RED Dashboard โดยมีหัวข้อดังนี้ Node-RED Dashboard, Node-RED Communication with PLC via Modbus TCP/IP, Node-RED: MQTT Protocol, Node-RED: Line Notify"
+        class="pt-3"
+        >
+      </project-card>
     </div>
   </div>
 </template>
 <script>
-import authHeader from "../__helpers/auth-header"
-import jwtDecode from "jwt-decode"
-/* import axios from "axios" */
-import Swal from "sweetalert2";
+import ProjectCard from "../components/ProjectCard.vue"
 
 export default {
   data() {
-    return {
-      isSignin: authHeader().Authorization ? true : false,
-      name: "",
-    }
+    return { }
   },
-  methods: {
-    goto_page(page) {
-        this.$router.push(page);
-    },
-    goPlayGame(page) {
-      if (this.isSignin) {
-          this.goto_page(page)
-      } else {
-          Swal.fire({
-            title: 'Please Sign-in before play',
-            html: `<input type="text" id="email" class="swal2-input" placeholder="Email">
-            <input type="password" id="password" class="swal2-input" placeholder="Password">`,
-            confirmButtonText: 'Sign in',
-            focusConfirm: true,
-            showCloseButton: true,
-            closeOnConfirm: true,
-            allowOutsideClick: false,
-            allowEscapeKey: true,
-            footer: `<a href> Don't have an account?, register now!</a>`,
-            preConfirm: () => {
-              const email = Swal.getPopup().querySelector('#email').value
-              const password = Swal.getPopup().querySelector('#password').value
-              if (!email || !password) {
-                Swal.showValidationMessage(`Please enter email and password`)
-              }
-              return { email: email, password: password }
-            }
-          }).then((result) => {
-            if (result.value.email === '' || result.value.password === '')
-              location.href = 'https://blocklyfra641.dogmatism.me/'
-            else Swal.fire(`Welcome ${result.value.email}`, 'Have a fun :D', 'success')
-          })
-      }
-    },
-    register() {
-      Swal.fire('Test')
-    }
-  },
-  async created() {
-      try {
-        const token = JSON.parse(localStorage.getItem("userData")).token;
-        if (token) {
-          const tokenDecoded = jwtDecode(token);
-          const firstName = tokenDecoded.first_name;
-          const lastName = tokenDecoded.last_name;
-          this.name = `${firstName} ${lastName}`
-        }
-      } catch (error) {
-        console.log(error);
-        if (localStorage.getItem("userData")) {
-          localStorage.removeItem("userData");
-          this.$router.push("/");
-        }
-      }
-    }
-
+  components: {
+    ProjectCard
+  }
 }
 </script>

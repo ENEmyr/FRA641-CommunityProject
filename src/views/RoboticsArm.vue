@@ -3,7 +3,7 @@
     <BlocklyComponent id="blockly" :options="options" ref="foo"></BlocklyComponent>
     <p id="submitBtn" class="d-grid gap-2">
       <button
-        v-if="submitEnable"
+        v-if="isSignin"
         v-on:click="submitCode()"
         class="btn btn-outline-success"
         type="button"
@@ -27,7 +27,9 @@
 
 <script>
 import axios from "axios";
+import authHeader from "../__helpers/auth-header"
 import Swal from "sweetalert2";
+import validator from "validator";
 import BlocklyComponent from "../components/BlocklyComponent.vue";
 import "../blocks/robotic_arm";
 import "../prompt";
@@ -42,8 +44,8 @@ export default {
   },
   data() {
     return {
+      isSignin: authHeader().Authorization ? true : false,
       code: "",
-      submitEnable: true,
       streamUrl: "",
       configs: null,
       client: {
@@ -168,29 +170,84 @@ export default {
       }
   },
   async created() {
+    // Check credentials
+    if (!this.isSignin)
       Swal.fire({
         title: 'Please Sign-in before play',
-        html: `<input type="text" id="login" class="swal2-input" placeholder="Username">
+        html: `<input type="email" id="email" class="swal2-input" placeholder="Email">
         <input type="password" id="password" class="swal2-input" placeholder="Password">`,
+        type: 'info',
         confirmButtonText: 'Sign in',
         focusConfirm: true,
         closeOnConfirm: true,
         allowOutsideClick: false,
         allowEscapeKey: false,
         preConfirm: () => {
-          const login = Swal.getPopup().querySelector('#login').value
+          const email = Swal.getPopup().querySelector('#email').value
           const password = Swal.getPopup().querySelector('#password').value
-          if (!login || !password) {
-            Swal.showValidationMessage(`Please enter login and password`)
+          if (!email || !password || !validator.isEmail(email)) {
+            Swal.showValidationMessage(`Please enter email and password`)
           }
-          return { login: login, password: password }
+          return { email: email, password: password }
         }
-      }).then((result) => {
-        if (result.value.login === '' || result.value.password === '')
-          location.href = 'https://blocklyfra641.dogmatism.me/'
-        else Swal.fire(`Welcome ${result.value.login}`, 'Have a fun :D', 'success')
+      }).then(async (result) => {
+        let timerInterval = null;
+        const res = await axios.request({
+          method: configs.backend.signin.method,
+          url: configs.backend.signin.requestUrl,
+          data: {
+            email: result.value.email,
+            password: result.value.password
+          }
+        })
+        if (res.status === 200) {
+          if (res.data.status_code === 200) {
+            localStorage.setItem('userData', JSON.stringify(res.data));
+            Swal.fire({
+              title: `Welcome back ${result.value.email}`,
+              text: 'Have a fun :D',
+              type: 'success',
+              timer: 1000,
+              didOpen: () => { timerInterval = setInterval(() => {}, 100); },
+              willClose: () => { clearInterval(timerInterval); }
+            })
+            .then((result) => {
+              if (result.dismiss === Swal.DismissReason.timer) this.$router.go();
+            });
+          } else if (res.data.status_code === 401 || res.data.status_code === 422) {
+            Swal.fire({
+              title: `Authentication Failed`,
+              text: 'Invalid email or password', 
+              type: 'warning',
+              timer: 1000,
+              didOpen: () => { timerInterval = setInterval(() => {}, 100); },
+              willClose: () => { clearInterval(timerInterval); }
+            })
+            .then(() => { this.$router.go(); });
+          } else {
+            Swal.fire({
+              title: `Error`, 
+              text: 'Internal Server Error', 
+              type: 'error',
+              timer: 1000,
+              didOpen: () => { timerInterval = setInterval(() => {}, 100); },
+              willClose: () => { clearInterval(timerInterval); }
+            })
+            .then(() => { this.$router.go(); });
+          }
+        } else {
+          Swal.fire({
+            title: `Error`, 
+            text: 'Unknown Error', 
+            type: 'error',
+            timer: 1000,
+            didOpen: () => { timerInterval = setInterval(() => {}, 100); },
+            willClose: () => { clearInterval(timerInterval); }
+          })
+          .then(() => { this.$router.go(); });
+        }
       })
-    }
+  }
 };
 </script>
 
