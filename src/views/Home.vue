@@ -27,6 +27,11 @@
         :members="['Mr.Thanatchai Wongjirad', 'Mr.Nattapoom Sawettaporn']" 
         :buttons="[ 
           { 
+            title: 'Play Game!', 
+            url: 'augmentgame',
+            requireAuth: true
+          }, 
+          { 
             title: 'Info',
             url: 'augmentinfo',
             requireAuth: false
@@ -61,6 +66,11 @@
         img="https://i.imgur.com/D3r85iZ.jpeg" 
         :members="['Mr.Phisek Phinyothammakon']" 
         :buttons="[ 
+          { 
+            title: 'Play Game!', 
+            url: 'noderedgame',
+            requireAuth: true
+          }, 
           { 
             title: 'Info',
             url: 'noderedinfo',

@@ -4,11 +4,11 @@
       <div class="text-center p-3 fs-1 text-white bg-dark">
         Project for Community
       </div>
-      <div class="col-3"></div>
-      <div class="col-4 pb-3">
+      <div class="col-2"></div>
+      <div class="col-6 pb-3">
         <router-view />
       </div>
-      <div class="col-3"></div>
+      <div class="col-2"></div>
     </div>
     <footer class="bg-dark text-center text-white">
       <!-- Grid container -->

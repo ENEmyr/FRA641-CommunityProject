@@ -48,6 +48,13 @@ const routes = [
     }
   },
   {
+    path: '/augmentgame',
+    name: 'Augmented Maze Challenge Game',
+    beforeEnter() {
+      location = `http://128.199.154.90:1880/ui${token}`
+    }
+  },
+  {
     path: '/logiticrobotinfo',
     name: 'Rogistic Robot Info',
     beforeEnter() {
@@ -66,6 +73,13 @@ const routes = [
     name: 'Node-RED to the moon Info',
     beforeEnter() {
       location = `https://phisekphin.wixsite.com/my-site`
+    }
+  },
+  {
+    path: '/noderedgame',
+    name: 'Node-RED to the moon Game',
+    beforeEnter() {
+      location = `http://20.212.13.12:1880/ui${token}`
     }
   },
   {
